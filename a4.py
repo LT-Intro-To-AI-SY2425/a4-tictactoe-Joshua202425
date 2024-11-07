@@ -12,6 +12,42 @@ class TTTBoard:
 
     pass
 
+    def __init__(self):
+        self.board=["*","*","*","*","*","*","*","*","*"]
+
+    def __str__(self):
+    
+         s=""
+         for x in [0,3,6]:
+             s+=self.board[x+0]+" "+self.board[x+1]+" "+self.board[x+2]+"\n"
+         return s
+    
+
+    def make_move(self,player, pos):
+        if pos > 8 or pos< 0 or self.board[pos]!="*":
+            return False
+        self.board[pos]=player
+        return True
+
+    def has_won(self,player):
+       ps=[player]*3
+       if self.board[:3]==ps or self.board[3:6]==ps or self.board[6:]==ps:
+           return True
+       if self.board[::3]==ps or self.board[1::3]==ps or self.board[2::3]:
+         return True
+       if self.board[::4]==ps or self.board[2:7:2]==ps:
+           return True
+       return False
+    
+    
+    def game_over(self):
+        if self.has_won("X") or self.has_won("O") or "*" not in self.board:
+            return True
+        return False
+    def clear(self):
+       
+        self.board=["*"]*9
+
 
 def play_tic_tac_toe() -> None:
     """Uses your class to play TicTacToe"""
